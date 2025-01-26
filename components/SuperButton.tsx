@@ -152,6 +152,7 @@ const RenderSignoutButton = (
   return (
     <Button
       {...rest}
+      variant={variant}
       onClick={signOutHandler}
       className={cn("", className)}
       disabled={pending}
