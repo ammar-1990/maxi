@@ -137,7 +137,7 @@ const RenderPushButton = (
 const RenderSignoutButton = (
   props: NormalButton & SignOutType & ButtonHTMLAttributes<HTMLButtonElement>
 ) => {
-  const { title, className, loadingTitle, buttonType,variant, ...rest } = props;
+  const { title, className, loadingTitle, buttonType,variant,iconColor, ...rest } = props;
   const [pending, startTransition] = useTransition();
   const signOutHandler = async () => {
     startTransition(async () => {
@@ -157,7 +157,7 @@ const RenderSignoutButton = (
       className={cn("", className)}
       disabled={pending}
     >
-      <LogOut className="w-12 h-12 text-white disabled:opacity-55" />
+      <LogOut className={cn("w-12 h-12 text-white disabled:opacity-55",iconColor)} />
       {pending && loadingTitle ? pending : title}
       {pending && <Loader2 className="ml-3 animate-spin" />}
     </Button>
@@ -208,4 +208,5 @@ type PushType = {
 type SignOutType = {
   buttonType: "signOut";
   loadingTitle?: string;
+  iconColor?:string
 };

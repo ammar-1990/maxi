@@ -1,7 +1,7 @@
 
 'use client'
 import { cn } from "@/lib/utils";
-import { Bolt, NotebookText, TableOfContents } from "lucide-react";
+import { AlignCenter, AlignJustify, Blocks, Bolt, NotebookText, TableOfContents, Tag } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -15,14 +15,29 @@ const LINKS = [
     Icon: <Bolt className="icon" />,
   },
   {
-    title: "categories & posts type",
+    title: "categories",
     href: "/categories",
+    Icon: <AlignJustify className="icon" />,
+  },
+  {
+    title: "Sub-categories",
+    href: "/sub-categories",
     Icon: <TableOfContents className="icon" />,
   },
   {
-    title: "posts & tags",
+    title: "Post types",
+    href: "/post-types",
+    Icon: <Blocks className="icon" />,
+  },
+  {
+    title: "posts",
     href: "/posts",
     Icon: <NotebookText className="icon" />,
+  },
+  {
+    title: "tags",
+    href: "/tags",
+    Icon: <Tag className="icon" />,
   },
 ];
 const NavLinks = (props: Props) => {

@@ -3,12 +3,12 @@ import Heading from '../_components/Heading'
 
 type Props = {}
 
-const PostsPage = (props: Props) => {
+const TagsPage = (props: Props) => {
   return (
     <div>
-            <Heading title='Posts' description='Add Posts'  />
+      <Heading title='Tags' description='Add Tags'  />
     </div>
   )
 }
 
-export default PostsPage
+export default TagsPage

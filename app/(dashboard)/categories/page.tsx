@@ -6,7 +6,7 @@ type Props = {}
 const CategoriesPage = (props: Props) => {
   return (
     <div>
-      <Heading title='Categories & Posts type' description='Categories, Sub-categories & Post types'  />
+      <Heading title='Categories' description='Add Main Categories'  />
     </div>
   )
 }
