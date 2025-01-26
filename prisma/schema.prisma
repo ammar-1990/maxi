@@ -1,0 +1,104 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Category {
+  id            String        @id @default(cuid())
+  name          String        @unique
+  slug          String        @unique
+  description   String?
+  subCategories SubCategory[]
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model SubCategory {
+  id          String     @id @default(cuid())
+  name        String
+  slug        String     @unique
+  description String?
+  categoryId  String
+  category    Category   @relation(fields: [categoryId], references: [id])
+  posts Post[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model PostType {
+  id            String      @id @default(cuid())
+  name          String      @unique
+  slug          String      @unique
+ 
+  pasts         Post[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+model Post {
+  id             String  @id @default(cuid())
+  title          String
+  slug           String  @unique
+  content        String
+  excerpt        String?
+  imageUrl       String?
+  seoTitle       String?
+  seoDescription String?
+  published      Boolean @default(false)
+  views          View[]
+
+  postTypeId String
+  postType   PostType @relation(fields: [postTypeId], references: [id])
+
+  subCategoryId String
+  subCategory SubCategory @relation(fields: [subCategoryId],references: [id])
+
+  tagId        String
+  tags         Tag[]
+  monetization Monetization[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+}
+
+model Tag {
+  id    String @id @default(cuid())
+  name  String @unique
+  slug  String @unique
+  posts Post[]
+}
+
+model Monetization {
+  id           String           @id @default(cuid())
+  postId       String
+  post         Post             @relation(fields: [postId], references: [id])
+  type         MonetizationType
+  affiliateUrl String?
+  sponsor      String?
+  createdAt    DateTime         @default(now())
+}
+
+enum MonetizationType {
+  AFFILIATE
+  SPONSORED
+  AD_REVENUE
+  DIGITAL_PRODUCT
+}
+
+model View {
+  id        String   @id @default(cuid())
+  postId    String
+  post      Post     @relation(fields: [postId], references: [id])
+  ip        String
+  userAgent String
+  createdAt DateTime @default(now())
+}
