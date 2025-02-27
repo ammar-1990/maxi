@@ -1,5 +1,5 @@
  
-import { Category, SubCategory } from '@prisma/client'
+import { Category, PostType, SubCategory } from '@prisma/client'
 import { create } from 'zustand'
 
 type ModalStore = {
@@ -15,8 +15,13 @@ modal:'category',
 data?:Category
 }  |{
   modal:'subCategory',
-  data?:SubCategory
-  }  |{
+  data?:SubCategory,
+  categories:Category[]
+  } |
+  { modal:'postType',
+    data?:PostType
+  }
+   |{
   modal:'delete',
   function:()=>Promise<{success:boolean,message:string}>
 }

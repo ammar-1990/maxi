@@ -16,20 +16,23 @@ import SuperButton from "@/components/SuperButton";
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import Heading from "../../_components/Heading";
-import { useCategory } from "../hooks/useCategory";
+
 import TextAreaField from "@/components/TextareaField";
+import { useSubCategory } from "../hooks/useSubCategory";
+import SelectField from "@/components/SelectField";
  
  
 
 type Props = {};
 
-const CategoryModal = (props: Props) => {
+const SubCategoryModal = (props: Props) => {
   const { open, setClose, modalInputs } = useModal();
-  const category = modalInputs?.modal === "category" ?  modalInputs.data : undefined;
+  const subCategory = modalInputs?.modal === "subCategory" ?  modalInputs.data : undefined;
+  const categories = modalInputs?.modal === 'subCategory' ? modalInputs.categories : []
   
-  const { form, onSubmit } = useCategory();
-  const title = category ? `Update ${category.name}` : "Create Category";
-  const isOpen = open && modalInputs?.modal === "category";
+  const { form, onSubmit } = useSubCategory();
+  const title = subCategory ? `Update ${subCategory.name}` : "Create Sub-Category";
+  const isOpen = open && modalInputs?.modal === "subCategory";
   return (
     <Dialog open={isOpen} onOpenChange={()=>{
       if(form.formState.isSubmitting) return
@@ -38,41 +41,50 @@ const CategoryModal = (props: Props) => {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>
-            <Heading title="Category" />
+            <Heading title="Sub-Category" />
           </DialogTitle>
           <DialogDescription>{title}</DialogDescription>
         </DialogHeader>
         <Form {...form}>
-       
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <div className="flex flex-col w-full gap-4">
+            <div className="flex flex-col w-full gap-4">
+          <SelectField
+              form={form}
+              label="Category"
+              name="categoryId"
+              placeholder="Choose Main Category"
+              renderItem={(item)=>({value:item.id,label:item.name})}
+              values={categories}
+            />
+ 
             <InputField
               form={form}
-              label="Category Name"
+              label="Sub-Category Name"
               name="name"
-              placeholder="Enter Category Title"
+              placeholder="Enter Sub-Category Title"
             />
             <InputField
               form={form}
-              label="Category Slug"
+              label="Sub-Category Slug"
               name="slug"
-              placeholder="Enter Category Slug"
+              placeholder="Enter Sub-Category Slug"
             />
             <TextAreaField
               form={form}
-              label="Category Description"
+              label="Sub-Category Description"
               name="description"
-              placeholder="Enter Category Description"
+              placeholder="Enter Sub-Category Description"
             />
-                     </div>
+             </div>
             <SuperButton
               variant="site"
               className="w-full"
               type="submit"
               buttonType="loadingButton"
               loading={form.formState.isSubmitting}
-              title={category ? "Update" : "Create"}
+              title={subCategory ? "Update" : "Create"}
             />
+
           </form>
         </Form>
       </DialogContent>
@@ -80,4 +92,4 @@ const CategoryModal = (props: Props) => {
   );
 };
 
-export default CategoryModal;
+export default SubCategoryModal;

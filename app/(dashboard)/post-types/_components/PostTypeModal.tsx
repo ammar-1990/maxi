@@ -16,20 +16,24 @@ import SuperButton from "@/components/SuperButton";
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import Heading from "../../_components/Heading";
-import { useCategory } from "../hooks/useCategory";
+
 import TextAreaField from "@/components/TextareaField";
+ 
+import SelectField from "@/components/SelectField";
+import { usePostType } from "../hooks/usePostType";
  
  
 
 type Props = {};
 
-const CategoryModal = (props: Props) => {
+const PostTypeModal = (props: Props) => {
   const { open, setClose, modalInputs } = useModal();
-  const category = modalInputs?.modal === "category" ?  modalInputs.data : undefined;
+  const postType = modalInputs?.modal === "postType" ?  modalInputs.data : undefined;
+ 
   
-  const { form, onSubmit } = useCategory();
-  const title = category ? `Update ${category.name}` : "Create Category";
-  const isOpen = open && modalInputs?.modal === "category";
+  const { form, onSubmit } = usePostType();
+  const title = postType ? `Update ${postType.name}` : "Create Post Type";
+  const isOpen = open && modalInputs?.modal === "postType";
   return (
     <Dialog open={isOpen} onOpenChange={()=>{
       if(form.formState.isSubmitting) return
@@ -38,41 +42,38 @@ const CategoryModal = (props: Props) => {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>
-            <Heading title="Category" />
+            <Heading title="Post Type" />
           </DialogTitle>
           <DialogDescription>{title}</DialogDescription>
         </DialogHeader>
         <Form {...form}>
-       
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <div className="flex flex-col w-full gap-4">
+            <div className="flex flex-col w-full gap-4">
+       
+ 
             <InputField
               form={form}
-              label="Category Name"
+              label="Post Type"
               name="name"
-              placeholder="Enter Category Title"
+              placeholder="Enter Post Type Title"
             />
             <InputField
               form={form}
-              label="Category Slug"
+              label="Post Type Slug"
               name="slug"
-              placeholder="Enter Category Slug"
+              placeholder="Enter Post Type Slug"
             />
-            <TextAreaField
-              form={form}
-              label="Category Description"
-              name="description"
-              placeholder="Enter Category Description"
-            />
-                     </div>
+        
+             </div>
             <SuperButton
               variant="site"
               className="w-full"
               type="submit"
               buttonType="loadingButton"
               loading={form.formState.isSubmitting}
-              title={category ? "Update" : "Create"}
+              title={postType ? "Update" : "Create"}
             />
+
           </form>
         </Form>
       </DialogContent>
@@ -80,4 +81,4 @@ const CategoryModal = (props: Props) => {
   );
 };
 
-export default CategoryModal;
+export default PostTypeModal;

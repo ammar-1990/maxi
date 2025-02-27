@@ -3,6 +3,8 @@
 import CategoryModal from "@/app/(dashboard)/categories/_components/CategoryModal"
 import { useEffect, useState } from "react"
 import DeleteModal from "./DeleteModal"
+import SubCategoryModal from "@/app/(dashboard)/sub-categories/_components/SubCategoryModal"
+import PostTypeModal from "@/app/(dashboard)/post-types/_components/PostTypeModal"
 
 type Props = {}
 
@@ -17,7 +19,9 @@ const ModalsProvider = (props: Props) => {
   return (
     <>
     <CategoryModal />
+    <SubCategoryModal />
     <DeleteModal/>
+    <PostTypeModal />
     </>
   )
 }

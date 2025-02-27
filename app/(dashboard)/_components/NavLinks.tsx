@@ -46,7 +46,7 @@ const NavLinks = (props: Props) => {
     <nav className="flex flex-col gap-2 p-6 border-t">
       {LINKS.map(({ Icon, href, title }) => (
         <Link key={title} href={href}>
-          <div className={cn("flex items-center gap-5 px-6 py-3 hover:bg-neutral-100 transition",pathname===href && 'bg-site-primary text-white hover:bg-site-primary')}>
+          <div className={cn("flex items-center text-site-primary gap-5 px-6 py-3 hover:bg-neutral-100 transition",pathname===href && 'bg-site-primary text-white hover:bg-site-primary')}>
             {Icon}
             <p className="capitalize text-sm">{title}</p>
           </div>

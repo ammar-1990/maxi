@@ -10,7 +10,7 @@ type Props = {
 
 const Logo = ({title,className,href}: Props) => {
   return (
-    <SuperButton title={title} buttonType='linkButton' className={className} href={href} />
+    <SuperButton title={title} buttonType='linkButton'  className={className} href={href} />
   )
 }
 

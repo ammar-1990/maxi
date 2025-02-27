@@ -1,24 +1,28 @@
 "use client";
 import SuperButton from "@/components/SuperButton";
-import { Category } from "@prisma/client";
+import { Category, SubCategory } from "@prisma/client";
 import { Edit, Trash } from "lucide-react";
 import React from "react";
-import { deleteCategory } from "../actions/deleteCategory";
+import { deleteSubCategory } from "../actions/deleteSubCategory";
+ 
 
-type Props = { category: Category };
+type Props = { subCategory: SubCategory ,
+categories:Category[]
 
-const CategoryCard = ({ category }: Props) => {
+};
+
+const SubCategoryCard = ({ subCategory,categories }: Props) => {
   return (
     <div className="p-4 border flex  gap-3 flex-col">
-      <h3 className="font-[500] text-lg capitalize">{category.name}</h3>
+      <h3 className="font-[500] text-lg capitalize">{subCategory.name}</h3>
       <p className="text-xs text-muted-foreground first-letter:capitalize line-clamp-3">
-        {category.description}
+        {subCategory.description}
       </p>
       <div className="flex items-center gap-2 mt-auto">
         <SuperButton
         className="flex-1 rounded-none"
           buttonType="modalButton"
-          modalInputs={{ modal: "category", data: category }}
+          modalInputs={{ modal: "subCategory", data: subCategory,categories }}
    
           Icon={<Edit />}
         />
@@ -29,7 +33,7 @@ const CategoryCard = ({ category }: Props) => {
           modalInputs={{
             modal: "delete",
             function: async () => {
-              return deleteCategory(category.id);
+              return deleteSubCategory(subCategory.id);
             },
           }}
        
@@ -40,4 +44,4 @@ const CategoryCard = ({ category }: Props) => {
   );
 };
 
-export default CategoryCard;
+export default SubCategoryCard;

@@ -11,7 +11,7 @@ type Props = {
 const Heading = ({titleStiling,title,description,descriptionStyling}: Props) => {
   return (
     <div>
-    <p className={cn('font-[500] text-[22px] tracking-[0.5px] text-[#1F384C] capitalize',titleStiling)}>{title}</p>
+    <p className={cn('font-[500] text-[22px] tracking-[0.5px] text-site-primary capitalize',titleStiling)}>{title}</p>
     {description && <p className={cn('text-xs text-muted-foreground capitalize tracking-[0.5px]',descriptionStyling)}>{description}</p>}
     </div>
 
