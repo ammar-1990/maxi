@@ -20,14 +20,17 @@ import { useImageUpload } from "@/app/hooks/imageUpload";
 import EditorField from "@/components/EditorField";
 import SelectField from "@/components/SelectField";
 import CheckboxField from "@/components/CheckboxField";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 
 type Props = {
   postTypes: PostType[];
   subCategories: SubCategory[];
   post?: Post & { tags: string[] };
+  tags: Tag[];
 };
 
-const PostForm = ({ postTypes, subCategories, post }: Props) => {
+const PostForm = ({ postTypes, subCategories, post, tags }: Props) => {
   const { form, onSubmit } = usePost(post);
   const { ImagePlaceholder, file, isDisabled, setFile, uploadImage } =
     useImageUpload({ form, fieldName: "imageUrl" });
@@ -98,6 +101,51 @@ const PostForm = ({ postTypes, subCategories, post }: Props) => {
             label="Post Content"
             name="content"
             placeholder="Write Post Content"
+          />
+
+          <FormField
+            control={form.control}
+            name="tags"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Tags</FormLabel>
+                <FormControl>
+                  <div className="grid grid-cols-2 md:grid-cols-3">
+                    {tags.map((tag, index) => (
+                      <div
+                        className="flex items-center gap-2 cursor-pointer"
+                        key={tag.id}
+                      >
+                        <Checkbox
+                          className="cursor-pointer"
+                          id={`tag-${tag.name}-${index}`}
+                        
+                         
+                          checked={field.value?.includes(tag.id)}
+                          onCheckedChange={() => {
+                            if (!field.value?.includes(tag.id)) {
+                              field.onChange([...field.value, tag.id]);
+                            } else {
+                              field.onChange(
+                                field.value.filter((el) => el !== tag.id)
+                              );
+                            }
+                          }}
+                        />
+                        <FormLabel
+                          htmlFor={`tag-${tag.name}-${index}`}
+                          className="capitalize cursor-pointer select-none text-[#606060]"
+                        >
+                          {tag.name}
+                        </FormLabel>
+                      </div>
+                    ))}
+                  </div>
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            )}
           />
 
           <CheckboxField form={form} label="Published" name="published" />

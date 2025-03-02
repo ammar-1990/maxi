@@ -13,5 +13,5 @@ export const postSchema = z.object({
     published:z.boolean(),
     postTypeId:z.string().min(1,"Required"),      
     subCategoryId:z.string().min(1,"Required"),      
-    tags:z.array(z.string()).optional()
+    tags:z.array(z.string()) 
 })

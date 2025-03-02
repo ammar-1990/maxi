@@ -25,11 +25,13 @@ const PostIdPage = async ({ params }: Props) => {
 
   const subCategoriesRes = prisma.subCategory.findMany();
   const postTypeRes = prisma.postType.findMany();
+  const tagsRes = prisma.tag.findMany()
 
-  const [post, subCategories, postTypes] = await Promise.all([
+  const [post, subCategories, postTypes,tags] = await Promise.all([
     postRes,
     subCategoriesRes,
     postTypeRes,
+    tagsRes
   ]);
 
   if (postId !== "new" && !post) return notFound();
@@ -45,6 +47,7 @@ const PostIdPage = async ({ params }: Props) => {
           }
           postTypes={postTypes}
           subCategories={subCategories}
+          tags={tags}
         />
       </div>
     </div>

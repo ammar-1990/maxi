@@ -25,7 +25,7 @@ export const usePost = (
       postTypeId: post?.postTypeId ?? "",
       subCategoryId: post?.subCategoryId ?? "",
       published: post?.published,
-      tags: post?.tags,
+      tags: post?.tags ?? [],
     },
   });
 
