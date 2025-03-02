@@ -50,10 +50,10 @@ model Post {
   title          String
   slug           String  @unique
   content        String
-  excerpt        String?
+  excerpt        String
   imageUrl       String?
-  seoTitle       String?
-  seoDescription String?
+  seoTitle       String
+  seoDescription String
   published      Boolean @default(false)
   views          View[]
 

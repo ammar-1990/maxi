@@ -15,15 +15,8 @@ const CategoryCard = ({ category }: Props) => {
         {category.description}
       </p>
       <div className="flex items-center gap-2 mt-auto">
-        <SuperButton
-        className="flex-1 rounded-none"
-          buttonType="modalButton"
-          modalInputs={{ modal: "category", data: category }}
-   
-          Icon={<Edit />}
-        />
-        <SuperButton
-        className="flex-1 rounded-none"
+      <SuperButton
+          className="flex-1 rounded-none"
           buttonType="modalButton"
           variant="destructive"
           modalInputs={{
@@ -32,9 +25,15 @@ const CategoryCard = ({ category }: Props) => {
               return deleteCategory(category.id);
             },
           }}
-       
           Icon={<Trash />}
         />
+        <SuperButton
+          className="flex-1 rounded-none"
+          buttonType="modalButton"
+          modalInputs={{ modal: "category", data: category }}
+          Icon={<Edit />}
+        />
+      
       </div>
     </div>
   );
