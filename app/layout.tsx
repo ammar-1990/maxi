@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ModalsProvider from "@/components/ModalsProvider";
 import { Toaster } from "sonner";
+import { EdgeStoreProvider } from "@/lib/edgestore";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,12 +29,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+
+    
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+        >
+        <EdgeStoreProvider>
         {children}
         <ModalsProvider/>
         <Toaster richColors />
+        </EdgeStoreProvider>
       </body>
     </html>
   );

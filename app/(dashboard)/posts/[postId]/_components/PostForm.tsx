@@ -1,0 +1,119 @@
+"use client";
+import { Post, PostType, SubCategory, Tag } from "@prisma/client";
+import React from "react";
+import { usePost } from "../hooks/usePost";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import SuperButton from "@/components/SuperButton";
+import InputField from "@/components/InputField";
+import TextAreaField from "@/components/TextareaField";
+import { SingleImageUploadField } from "@/components/SingleImageUploadField";
+import { useImageUpload } from "@/app/hooks/imageUpload";
+import EditorField from "@/components/EditorField";
+import SelectField from "@/components/SelectField";
+import CheckboxField from "@/components/CheckboxField";
+
+type Props = {
+  postTypes: PostType[];
+  subCategories: SubCategory[];
+  post?: Post & { tags: string[] };
+};
+
+const PostForm = ({ postTypes, subCategories, post }: Props) => {
+  const { form, onSubmit } = usePost(post);
+  const { ImagePlaceholder, file, isDisabled, setFile, uploadImage } =
+    useImageUpload({ form, fieldName: "imageUrl" });
+  return (
+    <div>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 ">
+          <SelectField
+            form={form}
+            label="Select Sub-Category"
+            name="subCategoryId"
+            placeholder="Select Sub-Category"
+            values={subCategories}
+            renderItem={(item) => ({ label: item.name, value: item.id })}
+          />
+          <SelectField
+            form={form}
+            label="Select Post Type"
+            name="postTypeId"
+            placeholder="Select Post Type"
+            values={postTypes}
+            renderItem={(item) => ({ label: item.name, value: item.id })}
+          />
+          <InputField
+            form={form}
+            label="Title"
+            name="title"
+            placeholder="Post Title"
+          />
+          <InputField
+            form={form}
+            label="Slug"
+            name="slug"
+            placeholder="Post Slug"
+          />
+          <InputField
+            form={form}
+            label="Seo Title"
+            name="seoTitle"
+            placeholder="Post Seo Title"
+          />
+          <TextAreaField
+            form={form}
+            label="Seo Description"
+            name="seoDescription"
+            placeholder="Post Seo Description"
+          />
+          <TextAreaField
+            form={form}
+            label="Excerpt"
+            name="excerpt"
+            placeholder="Post Excerpt"
+          />
+          <SingleImageUploadField
+            file={file}
+            ImagePlaceholder={ImagePlaceholder()}
+            form={form}
+            isDisabled={isDisabled}
+            name="imageUrl"
+            setFile={setFile}
+            uploadImage={uploadImage}
+            label="Upload Post Image"
+          />
+
+          <EditorField
+            editorStyles="min-h-[150px]"
+            form={form}
+            label="Post Content"
+            name="content"
+            placeholder="Write Post Content"
+          />
+
+          <CheckboxField form={form} label="Published" name="published" />
+
+          <SuperButton
+            variant="site"
+            className=""
+            type="submit"
+            buttonType="loadingButton"
+            loading={form.formState.isSubmitting}
+            title={post ? "Update" : "Create"}
+          />
+        </form>
+      </Form>
+    </div>
+  );
+};
+
+export default PostForm;

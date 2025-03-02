@@ -63,7 +63,7 @@ model Post {
   subCategoryId String
   subCategory SubCategory @relation(fields: [subCategoryId],references: [id])
 
-  tagId        String
+  
   tags         Tag[]
   monetization Monetization[]
   createdAt    DateTime       @default(now())
