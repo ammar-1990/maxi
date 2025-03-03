@@ -6,6 +6,8 @@ import { z } from "zod";
 import { errorToast } from "@/lib/utils";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { createPost } from "../actions/createPost";
+import { updatePost } from "../actions/updatePost";
 
 export const usePost = (
   post: (Post & { tags: string[] }) | undefined
@@ -24,7 +26,7 @@ export const usePost = (
       seoDescription: post?.seoDescription ?? "",
       postTypeId: post?.postTypeId ?? "",
       subCategoryId: post?.subCategoryId ?? "",
-      published: post?.published,
+      published: post?.published ?? false,
       tags: post?.tags ?? [],
     },
   });
@@ -33,13 +35,13 @@ export const usePost = (
     let res;
     try {
       if (!post) {
-   
+   res = await createPost(values)
       } else {
-  
+  res = await updatePost({data:values,id:post.id})
       }
 
-      if (true) {
-        errorToast('');
+      if (!res?.success) {
+        errorToast(res?.message);
       } else {
   
         router.refresh();

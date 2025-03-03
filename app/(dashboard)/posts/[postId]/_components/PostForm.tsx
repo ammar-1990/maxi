@@ -113,7 +113,7 @@ const PostForm = ({ postTypes, subCategories, post, tags }: Props) => {
                   <div className="grid grid-cols-2 md:grid-cols-3">
                     {tags.map((tag, index) => (
                       <div
-                        className="flex items-center gap-2 cursor-pointer"
+                        className="flex items-center gap-2  "
                         key={tag.id}
                       >
                         <Checkbox
@@ -134,7 +134,7 @@ const PostForm = ({ postTypes, subCategories, post, tags }: Props) => {
                         />
                         <FormLabel
                           htmlFor={`tag-${tag.name}-${index}`}
-                          className="capitalize cursor-pointer select-none text-[#606060]"
+                          className="capitalize cursor-pointer select-none text-[#606060] w-fit"
                         >
                           {tag.name}
                         </FormLabel>
@@ -148,7 +148,11 @@ const PostForm = ({ postTypes, subCategories, post, tags }: Props) => {
             )}
           />
 
-          <CheckboxField form={form} label="Published" name="published" />
+<div className="border p-4 w-fit ">
+<CheckboxField form={form} label="Published" name="published" />
+</div>
+
+     
 
           <SuperButton
             variant="site"
