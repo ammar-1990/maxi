@@ -21,9 +21,9 @@ const PostCard = ({post}: Props) => {
     </p>
     <p className='text-muted-foreground text-sm'>{post.excerpt}</p>
 </div>
-<div className='flex items-center gap-2 mt-auto'>
-    <SuperButton buttonType='modalButton' modalInputs={{modal:'delete',function:()=>deletePost(post.id)}} Icon={<Trash/>} title='delete' />
-    <SuperButton buttonType='linkButton' href={`/posts/${post.id}`} title='Update' Icon={<Edit />} />
+<div className='flex items-center gap-2 mt-auto w-full'>
+    <SuperButton className='flex-1' buttonType='modalButton' variant='destructive' modalInputs={{modal:'delete',function:()=>deletePost(post.id)}} Icon={<Trash/>} title='delete' />
+    <SuperButton className='flex-1' buttonType='linkButton' href={`/posts/${post.id}`} title='Update' Icon={<Edit />} />
 </div>
 
  

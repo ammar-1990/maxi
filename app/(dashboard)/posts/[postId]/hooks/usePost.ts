@@ -43,7 +43,9 @@ export const usePost = (
       if (!res?.success) {
         errorToast(res?.message);
       } else {
-  
+        
+
+        router.push('/posts')
         router.refresh();
         toast.success(res.message);
       }
