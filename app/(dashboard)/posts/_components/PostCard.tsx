@@ -13,7 +13,7 @@ type Props = {
 
 const PostCard = ({post}: Props) => {
   return (
-<div key={post.id} className='p-4 border flex flex-col gap-2'>
+<div key={post.id} className='p-4 border flex flex-col gap-2 shadow-md'>
 {post.imageUrl && <ImageComponent alt='img' aspect='video' src={post.imageUrl} />}
 <div>
     <p className='font-[500] capitalize'>

@@ -11,6 +11,8 @@ export const postSchema = z.object({
     seoTitle:z.string().min(1,"Required"),      
     seoDescription:z.string().min(1,"Required"),      
     published:z.boolean(),
+    isFeatured:z.boolean(),
+    author:z.string().optional(),
     postTypeId:z.string().min(1,"Required"),      
     subCategoryId:z.string().min(1,"Required"),      
     tags:z.array(z.string()) 

@@ -18,6 +18,8 @@ import dynamic from "next/dynamic";
 import Heading from "../../_components/Heading";
 import { useCategory } from "../hooks/useCategory";
 import TextAreaField from "@/components/TextareaField";
+import { SingleImageUploadField } from "@/components/SingleImageUploadField";
+import { useImageUpload } from "@/app/hooks/imageUpload";
  
  
 
@@ -30,8 +32,11 @@ const CategoryModal = (props: Props) => {
   const { form, onSubmit } = useCategory();
   const title = category ? `Update ${category.name}` : "Create Category";
   const isOpen = open && modalInputs?.modal === "category";
+
+  const { ImagePlaceholder, file, isDisabled, setFile, uploadImage } =
+  useImageUpload({ form, fieldName: "image" });
   return (
-    <Dialog open={isOpen} onOpenChange={()=>{
+    <Dialog   open={isOpen} onOpenChange={()=>{
       if(form.formState.isSubmitting) return
       setClose()
     }}>
@@ -64,6 +69,16 @@ const CategoryModal = (props: Props) => {
               name="description"
               placeholder="Enter Category Description"
             />
+              <SingleImageUploadField
+            file={file}
+            ImagePlaceholder={ImagePlaceholder()}
+            form={form}
+            isDisabled={isDisabled}
+            name="image"
+            setFile={setFile}
+            uploadImage={uploadImage}
+            label="Upload Post Image"
+          />
                      </div>
             <SuperButton
               variant="site"

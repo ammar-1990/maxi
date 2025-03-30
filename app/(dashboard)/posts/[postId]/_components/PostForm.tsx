@@ -112,15 +112,10 @@ const PostForm = ({ postTypes, subCategories, post, tags }: Props) => {
                 <FormControl>
                   <div className="grid grid-cols-2 md:grid-cols-3">
                     {tags.map((tag, index) => (
-                      <div
-                        className="flex items-center gap-2  "
-                        key={tag.id}
-                      >
+                      <div className="flex items-center gap-2  " key={tag.id}>
                         <Checkbox
                           className="cursor-pointer"
                           id={`tag-${tag.name}-${index}`}
-                        
-                         
                           checked={field.value?.includes(tag.id)}
                           onCheckedChange={() => {
                             if (!field.value?.includes(tag.id)) {
@@ -147,12 +142,19 @@ const PostForm = ({ postTypes, subCategories, post, tags }: Props) => {
               </FormItem>
             )}
           />
+          <InputField
+            form={form}
+            label="Author"
+            name="author"
+            placeholder="Author"
+          />
 
-<div className="border p-4 w-fit ">
-<CheckboxField form={form} label="Published" name="published" />
-</div>
-
-     
+          <div className="border p-4 w-fit ">
+            <CheckboxField form={form} label="Published" name="published" />
+          </div>
+          <div className="border p-4 w-fit ">
+            <CheckboxField form={form} label="Featured" name="isFeatured" />
+          </div>
 
           <SuperButton
             variant="site"

@@ -15,7 +15,7 @@ const PostFeed =async ({categorySlug,postType,subCategorySlug}: Props) => {
       }
     })
   return (
-    <div className='grid grid-cols-1 md:grid-cols-3'>
+    <div className='grid grid-cols-1 md:grid-cols-3 gap-2'>
         {posts.map(item=><PostCard key={item.id} post={item} />)}
     </div>
   )

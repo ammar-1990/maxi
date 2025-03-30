@@ -1,38 +1,43 @@
-"use server"
+"use server";
 
-import { auth } from "@/auth"
-import CustomError from "@/lib/CustomError"
+import { auth } from "@/auth";
+import CustomError from "@/lib/CustomError";
+
+import prisma from "@/lib/prisma";
+import { throwCustomError } from "@/lib/utils";
+
+export const deletePost = async (
+  id: string
+): Promise<{ success: boolean; message: string }> => {
  
-import prisma from "@/lib/prisma"
-import { throwCustomError } from "@/lib/utils"
+  try {
+    const session = await auth();
 
-export const deletePost = async(id:string):Promise<{success:boolean,message:string}>=>{
+    if (!session) return throwCustomError("Unauthorized");
+    if (!id) return throwCustomError("id is required");
 
-    try {
-const session = await auth()
-if(!session) return throwCustomError('Unauthorized')
-    if(!id) return throwCustomError('id is required')
- 
-      
-      
+    const deletedItem = await prisma.post.findUnique({
+      where: {
+        id,
+      },
+    });
+    if (!deletedItem) return throwCustomError("Items does not exist");
 
-        const deletedItem = await prisma.post.delete({
-            where:{
-                id
-            }
-        })
+    await prisma.post.delete({
+      where: {
+        id,
+      },
+    });
 
-        if(!deletedItem) return throwCustomError('Items does not exist')
-
-            return {success:true,message:'Item deleted successfully'}
-        
-    } catch (error) {
-        if(error instanceof CustomError){
-            return {
-                success:false,
-                message:error.message
-            }
-        }
-        return {success:false,message:'Internal Server Error'}
-}
-}
+    return { success: true, message: "Item deleted successfully" };
+  } catch (error) {
+    console.error(error);
+    if (error instanceof CustomError) {
+      return {
+        success: false,
+        message: error.message,
+      };
+    }
+    return { success: false, message: "Internal Server Error" };
+  }
+};

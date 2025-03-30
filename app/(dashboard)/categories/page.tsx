@@ -25,7 +25,7 @@ const CategoriesPage = async (props: Props) => {
 
       <div className="mt-12">
         {categories.length ? (
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-2">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-2 ">
             {categories.map((category) => (
              <CategoryCard key={category.id} category={category} />
             ))}

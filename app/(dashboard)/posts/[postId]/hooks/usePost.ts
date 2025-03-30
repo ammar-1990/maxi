@@ -27,7 +27,10 @@ export const usePost = (
       postTypeId: post?.postTypeId ?? "",
       subCategoryId: post?.subCategoryId ?? "",
       published: post?.published ?? false,
+      isFeatured:post?.isFeatured ?? false,
+      author:post?.author ?? '',
       tags: post?.tags ?? [],
+
     },
   });
 
